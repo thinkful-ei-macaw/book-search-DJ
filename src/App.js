@@ -8,16 +8,18 @@ class App extends React.Component {
   state = {
     results: [],
     error: null,
-    title: ""
+    title: "",
+    booktype: null,
+    printtype: null
   };
 
 
 
-  fetchResults = (title, book, print) => {
+  fetchResults = (title) => {
     this.setState({ title: title })
 
-    if (book) {
-      fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}&filter=${book}`)
+    if (this.state.booktype && this.state.printtype) {
+      fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}&filter=${this.state.booktype}&printType=${this.state.printtype}`)
       .then(res => 
         res.ok ? res.json() : Promise.reject("Something went wrong!"))
       .then(data => {
@@ -26,6 +28,24 @@ class App extends React.Component {
         })
       })
       .catch(err => this.setState({ error:err.message }))
+    } else if (this.state.booktype) {
+      fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}&filter=${this.state.booktype}`)
+      .then(res => 
+        res.ok ? res.json() : Promise.reject("Something went wrong!"))
+      .then(data => {
+        this.setState({
+          results: data.items
+        })
+      })
+    } else if (this.state.printtype) {
+      fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}&printType=${this.state.printtype}`)
+      .then(res => 
+        res.ok ? res.json() : Promise.reject("Something went wrong!"))
+      .then(data => {
+        this.setState({
+          results: data.items
+        })
+      })
     }
     
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}`)
@@ -37,6 +57,20 @@ class App extends React.Component {
       })
     })
     .catch(err => this.setState({ error:err.message }))
+  }
+
+  handleBookType = (target) => {
+    this.setState({
+      booktype: target
+    })
+    this.fetchResults(this.title);
+  }
+
+  handlePrintType = (target) => {
+    this.setState({
+      printtype: target
+    })
+    this.fetchResults(this.title);
   }
 
   render(){
@@ -78,7 +112,7 @@ class App extends React.Component {
       <Header />
       <main className='App'>
         <Search fetchResults={this.fetchResults}/>
-        <Filter fetchResults={this.fetchResults} title={this.state.title}/>
+        <Filter handleBookType={this.handleBookType} handlePrintType={this.handlePrintType} title={this.state.title}/>
         <Results results={results}/>
       </main>
       </>
