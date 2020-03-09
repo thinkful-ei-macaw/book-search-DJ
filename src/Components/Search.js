@@ -3,12 +3,13 @@ import './Search.css'
 
 function Search (props) {
   return (
-    <form className='search-form js-search'>
+    <form className='search-form js-search' onSubmit={e => {
+      e.preventDefault()
+      props.fetchResults(e.target.search.value)
+    }}>
       <label htmlFor='search'>Search: </label>
       <input type='text' id="search" name='search' placeholder='book title'></input>
-      <button type='submit' onClick={e => {
-        e.preventDefault()
-        props.fetchResults(document.getElementById('search').value)}}>Search</button>
+      <button type='submit'>Search</button>
     </form>
   )
 }

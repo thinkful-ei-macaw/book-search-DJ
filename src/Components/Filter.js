@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Filter () {
+function Filter (props) {
   return (
     <form className="filter js-filter">
       <label htmlFor="print-type">Print Type: </label>
@@ -11,9 +11,9 @@ function Filter () {
         <option value="magazines">Magazines</option>
       </select>
       <label htmlFor="book-type">Book Type: </label>
-      <select id="book-type">
+      <select onChange={e => props.fetchResults(props.title, e.target.value)}id="book-type">
         <option value="" defaultValue hidden>Book Type</option>
-        <option value="free-ebooks">Free eBooks</option>
+        <option id ="free" value="free-ebooks">Free eBooks</option>
       </select>
     </form>
   )
