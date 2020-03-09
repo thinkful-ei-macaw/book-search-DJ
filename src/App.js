@@ -82,66 +82,6 @@ class App extends React.Component {
         .catch(err => this.setState({ error:err.message }));
       }
       }
-    
-  // fetchResults = (title) => {
-  //   this.setState({ title: title })
-
-  //   if (this.state.booktype && this.state.printtype) {
-  //     fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}&filter=${this.state.booktype}&printType=${this.state.printtype}`)
-  //     .then(res => 
-  //       res.ok ? res.json() : Promise.reject("Something went wrong!"))
-  //     .then(data => {
-  //       this.setState({
-  //         results: data.items
-  //       })
-  //     })
-  //     .catch(err => this.setState({ error:err.message }))
-  //   } else if (this.state.booktype) {
-  //     fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}&filter=${this.state.booktype}`)
-  //     .then(res => 
-  //       res.ok ? res.json() : Promise.reject("Something went wrong!"))
-  //     .then(data => {
-  //       console.log(data)
-  //       this.setState({
-  //         results: data.items
-  //       })
-  //     })
-  //   } else if (this.state.printtype) {
-  //     fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}&printType=${this.state.printtype}`)
-  //     .then(res => 
-  //       res.ok ? res.json() : Promise.reject("Something went wrong!"))
-  //     .then(data => {
-  //       console.log(data)
-  //       this.setState({
-  //         results: data.items
-  //       })
-  //     })
-  //   }
-    
-  //   fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}`)
-  //   .then(res => 
-  //     res.ok ? res.json() : Promise.reject("Something went wrong!"))
-  //   .then(data => {
-  //     this.setState({
-  //       results: data.items
-  //     })
-  //   })
-  //   .catch(err => this.setState({ error:err.message }))
-  // }
-
-  // handleBookType = (target) => {
-  //   this.setState({
-  //     booktype: target
-  //   })
-  //   this.fetchResults(this.state.title);
-  // }
-
-  // handlePrintType = (target) => {
-  //   this.setState({
-  //     printtype: target
-  //   })
-  //   this.fetchResults(this.state.title);
-  // }
 
   render(){
     if (this.state.error) {
