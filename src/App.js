@@ -3,6 +3,7 @@ import Header from './Components/Header'
 import Search from './Components/Search'
 import Filter from './Components/Filter'
 import Results from './Components/Results'
+import'./App.css';
 
 class App extends React.Component {
   state = {
@@ -91,61 +92,128 @@ class App extends React.Component {
     if (this.state.results !== undefined) {
       // eslint-disable-next-line array-callback-return
       results = this.state.results.map(list => {
+      
+      let snippet;
+
+
       if (list.saleInfo.saleability === "FOR_SALE" && list.volumeInfo.imageLinks !== undefined) {
+
+        if (list.searchInfo !== null) {
+          snippet = <p>{list.searchInfo.textSnippet}</p>;
+        } else {
+          snippet = <p>'No short description'</p>;
+        }
         return(
-          <li key={list.id}>
-            <img src={list.volumeInfo.imageLinks.thumbnail} alt="book cover art"/>
+          <li key={list.id} className="book">
             <h2>{list.volumeInfo.title}</h2>
-            <h3>Author: {list.volumeInfo.authors}</h3>
-            <span>{list.saleInfo.listPrice.amount}</span>
-            <p>{list.volumeInfo.description}</p>
+            <div className="content-container">
+              <div className="img">
+                <img src={list.volumeInfo.imageLinks.thumbnail} alt="book cover art" className="thumbnail"/>
+              </div>
+              <div className="book-content">
+                <h3>Author: {list.volumeInfo.authors}</h3>
+                <span>{list.saleInfo.listPrice.amount}</span>
+                {snippet}
+              </div>
+            </div>
           </li>
         )
       } else if (list.saleInfo.saleability === "FOR_SALE" && list.volumeInfo.imageLinks === undefined){
+        if (list.searchInfo !== null) {
+          snippet = <p>{list.searchInfo.textSnippet}</p>;
+        } else {
+          snippet = <p>'No short description'</p>;
+        }
         return(
-          <li key={list.id}>
+          <li key={list.id} className="book"> 
             <h2>{list.volumeInfo.title}</h2>
-            <h3>Author: {list.volumeInfo.authors}</h3>
-            <span>{list.saleInfo.listPrice.amount}</span>
-            <p>{list.volumeInfo.description}</p>
+            <div className='content-container'>
+              <div className="book-content">
+                <h3>Author: {list.volumeInfo.authors}</h3>
+                <span>{list.saleInfo.listPrice.amount}</span>
+                {snippet}
+              </div>
+            </div>
           </li>
         )
       } else if (list.saleInfo.saleability === "NOT_FOR_SALE" && list.volumeInfo.imageLinks !== undefined) { 
+        if (list.searchInfo !== undefined) {
+          snippet = <p>{list.searchInfo.textSnippet}</p>;
+        } else {
+          snippet = <p>'No short description'</p>;
+        }
         return (
-          <li key={list.id}>
-            <img src={list.volumeInfo.imageLinks.thumbnail} alt="book cover art"/>
+          <li key={list.id} className="book">
             <h2>{list.volumeInfo.title}</h2>
-            <h3>Author: {list.volumeInfo.authors}</h3>
-            <span>NOT FOR SALE</span>
-            <p>{list.volumeInfo.description}</p>
+            <div className="content-container">
+              <div className="img">
+              <img src={list.volumeInfo.imageLinks.thumbnail} alt="book cover art" className="thumbnail"/>
+              </div>
+              <div className="book-content">
+                <h3>Author: {list.volumeInfo.authors}</h3>
+                <span>NOT FOR SALE</span>
+                {snippet}
+              </div>
+            </div>
           </li>
         )
       } else if (list.saleInfo.saleability === "NOT_FOR_SALE" && list.volumeInfo.imageLinks === undefined){
+        if (list.searchInfo !== null) {
+          snippet = <p>{list.searchInfo.textSnippet}</p>;
+        } else {
+          snippet = <p>'No short description'</p>;
+        }
         return(
-          <li key={list.id}>
+          <li key={list.id} className="book">
             <h2>{list.volumeInfo.title}</h2>
-            <h3>Author: {list.volumeInfo.authors}</h3>
-            <span>NOT FOR SALE</span>
-            <p>{list.volumeInfo.description}</p>
+            <div className="content-container">
+              <div className="img">
+              </div>
+              <div className="book-content">
+                <h3>Author: {list.volumeInfo.authors}</h3>
+                <span>NOT FOR SALE</span>
+                {snippet}
+              </div>
+            </div>
           </li>
         )
       } else if (list.saleInfo.saleability === "FREE" && list.volumeInfo.imageLinks !== undefined) {
+        if (list.searchInfo !== null) {
+          snippet = <p>{list.searchInfo.textSnippet}</p>;
+        } else {
+          snippet = <p>'No short description'</p>;
+        }
         return (
-          <li key={list.id}>
-            <img src={list.volumeInfo.imageLinks.thumbnail} alt="book cover art"/>
+          <li key={list.id} className="book">
             <h2>{list.volumeInfo.title}</h2>
-            <h3>Author: {list.volumeInfo.authors}</h3>
-            <span>FREE</span>
-            <p>{list.volumeInfo.description}</p>
+            <div className="content-container">
+              <div className="img">
+              <img src={list.volumeInfo.imageLinks.thumbnail} alt="book cover art" className="thumbnail"/>
+              </div>
+              <div className="book-content">
+              <h3>Author: {list.volumeInfo.authors}</h3>
+              <span>FREE</span>
+              {snippet}
+              </div>
+            </div>
         </li>
         )
       } else if (list.saleInfo.saleability === "FREE" && list.volumeInfo.imageLinks === undefined){
+        if (list.searchInfo !== null) {
+          snippet = <p>{list.searchInfo.textSnippet}</p>;
+        } else {
+          snippet = <p>'No short description'</p>;
+        }
         return(
-          <li key={list.id}>
+          <li key={list.id} className="book">
             <h2>{list.volumeInfo.title}</h2>
-            <h3>Author: {list.volumeInfo.authors}</h3>
-            <span>FREE</span>
-            <p>{list.volumeInfo.description}</p>
+            <div className="content-container">
+              <div className="book-content">
+                <h3>Author: {list.volumeInfo.authors}</h3>
+                <span>FREE</span>
+                {snippet}
+              </div>
+            </div>
           </li>
         )
       }
